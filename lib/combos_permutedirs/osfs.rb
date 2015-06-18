@@ -34,7 +34,7 @@ module Combinatorics::PermuteDirs
       delim = opts[:delim] if opts.key?('delim')  
       parry = apath.split(delim)
 
-      for 2 .. parray.size - 1 do |k|
+      for k in 2 .. parray.size - 1 
         parry.permute(k).each do |e|
           yield e
 
