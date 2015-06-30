@@ -9,13 +9,10 @@ email: decal@ethernet.org
 homepage: https://github.com/decal/combos_permutedirs#readme
 has_yard: true
 
-required_ruby_version: ">= 2.2.2"
+required_ruby_version: '>= 2.2.2'
 
 development_dependencies:
   rubygems-tasks: '>= 0.2.4'
   rspec: '>= 3.3.0'
-  yaml: 
-  yard: 
-  combinatorics: 
-  ronin-support: 
-  uri-query_params: 
+  yard: '>= 0.8.7.6'
+  combinatorics: '>= 0.4.3'

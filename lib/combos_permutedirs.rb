@@ -1,3 +1,6 @@
+require 'combinatorics'
+require 'blank'
+require 'combos_permutedirs/extensions'
+require 'combos_permutedirs/mixin'
+require 'combos_permutedirs/uri'
 require 'combos_permutedirs/version'
-require 'combos_permutedirs/http'
-require 'combos_permutedirs/osfs'

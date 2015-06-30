@@ -1,3 +1,9 @@
 #!/usr/bin/env ruby
 
+require '../lib/combos_permutedirs'
+
+s = String.new('https://host.dom/cgi-bin/test/apps/who/data/abc/123')
+
+s.permute_dirs{|x| x.each{|y| p '/' << y.to_a.join('/')}}
+
 exit 0
