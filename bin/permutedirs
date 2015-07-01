@@ -1,9 +1,19 @@
 #!/usr/bin/env ruby
+# encoding: utf-8
 
-require '../lib/combos_permutedirs'
+require 'combos_permutedirs'
+require 'uri'
 
-s = String.new('https://host.dom/cgi-bin/test/apps/who/data/abc/123')
+s = 'https://host.dom/cgi-bin/test/apps/who/data/abc/123'
 
-s.permute_dirs{|x| x.each{|y| p '/' << y.to_a.join('/')}}
+s.permute_dirs do |x| 
+  u = URI(s)
+
+  x.each do |y| 
+    l = "#{u.scheme.dup}://#{u.host.dup}/#{y.to_a.join('/')}"
+
+    STDOUT.puts(l)
+  end
+end
 
 exit 0
