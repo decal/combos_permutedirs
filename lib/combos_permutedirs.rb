@@ -1,6 +1,5 @@
 require 'combinatorics'
-require 'blank'
+require 'combos_permutedirs/blank'
 require 'combos_permutedirs/extensions'
 require 'combos_permutedirs/mixin'
-require 'combos_permutedirs/uri'
 require 'combos_permutedirs/version'
