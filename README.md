@@ -1,4 +1,4 @@
-# Combinatorial Directory Pathname Permutations
+# Combinatorial Permutation of Directories
 
 * {Combinatorics::PermuteDirs}
 * [Source](https://github.com/decal/combos_permutedirs)
@@ -8,30 +8,47 @@
 
 ## Description
 
-A collection of modules and methods for computing permutations
-[Permutations](http://en.wikipedia.org/wiki/Permutations) on web-based and file
-system paths and then testing for their existence. In other words, re-ordering
-the directory names in the path. The purpose of this is to discover new paths
-from known ones during the reconaissance phase of web application penetration 
-testing or host security hardening of a workstation/server.
+Ever been determined to discover new sub-directories that may exist during a
+web application penetration test? This toolset may help in such a situation.  
+It creates entirely new fully qualified URL's or local filesystem pathnames 
+entirely based on the pre-existing names used by directories which have already
+been discovered. Simply provide the output from programs like dirb, DirBuster, 
+dirbx, and others as input to the provided Ruby script executables.
+
+In essence, this is a collection of modules, methods and scripts for computing 
+all [Permutations](http://en.wikipedia.org/wiki/Permutations) within the
+[Power Set](https://en.wikipedia.org/wiki/Power_set) of a given file/URI path's
+directory names. Thereafter, their existence may be tested for whether they be
+web-based or local file system paths. You may use these scripts themselves to 
+check for their existence or have them create output files to be used as input
+for another brute-force search or enumeration type scanning tool. In plainer 
+terms, all orders of directory names as well as variations of full path length 
+are computed. The purpose of this is to discover new paths from known ones 
+during reconaissance for web application penetration testing or the host-based
+security hardening of a workstation/server image.
 
 ## Features
 
 * Tests remote HTTP and HTTPS targets 
-  * {Combinatorics::PermuteDirs::HTTP}
-* Checks local filesystem if current user has permissions for subdirectories 
-  * {Combinatorics::PermuteDirs::OSFS}
+  * {URI::HTTP}
+  * {URI::HTTPS}
+* Facilitates extension to other URI schemes
+  * {Combinatorics::PermuteDirs::Mixin}
+* Checks local filesystem to validate current user's permission to access paths
+  * {Combinatorics::PermuteDirs::Local}
 
 ## Examples
 
 Enumerate over every sub-range between two ranges:
 
-    Combinatorics::PermuteDirs::OSFS.new('a/b/')
-    # => ['a/b', 'b/a']
+> URI('https://host.dom/cgi-bin/test/').permute_dirs{|x| x.each{|y| puts "/#{y.to_a.join('/')}"}}
+/
+/cgi-bin
+/test
+/cgi-bin/test
+/test/cgi-bin
 
-    include Combinatorics
-
-    PermuteDirs::HTTP.new('http://www.google.com/app/cgi-bin/server-status.cgi').call
+* Note: See the file bin/one_liner to test out this brief example
 
 ## Requirements
 
@@ -40,6 +57,11 @@ Enumerate over every sub-range between two ranges:
 ## Install
 
     $ gem install combos_permutedirs
+
+## Shoutouts
+
+* Hal Brodigan (for teaching me how to write a RubyGem)
+* Christopher Abad (for answering all my questions about discrete math)
 
 ## Copyright
 

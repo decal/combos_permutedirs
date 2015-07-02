@@ -4,6 +4,7 @@
 require 'combos_permutedirs'
 require 'uri'
 
+=begin
 s = 'https://host.dom/cgi-bin/test/apps/who/data/abc/123'
 
 s.permute_dirs do |x| 
@@ -14,6 +15,22 @@ s.permute_dirs do |x|
 
     STDOUT.puts(l)
   end
+end
+=end
+
+begin
+  # Note that permute_dirs may be called on a String or URI
+  u = URI('https://host.dom/cgi-bin/test/apps/who/data/123/abc')
+
+  u.permute_dirs do |x|
+    x.each do |y|
+      l = "#{u.scheme}://#{u.host}/#{y.to_a.join('/')}"
+
+      puts l
+    end
+  end
+rescue Exception => e
+  raise(ScriptError, e.to_s)
 end
 
 exit 0

@@ -1,7 +1,3 @@
-### 0.1.0 / 2015-06-15
+### 0.8.0 / 2015-07-02
 
-* Initial commit to GitHub of RubyGem directory structure
-
-### 0.8.0 / 2015-06-18
-
-* Pushed updated semi-working code
+* First working pre-release of code to GitHub in RubyGem directory structure

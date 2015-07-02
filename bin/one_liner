@@ -1,0 +1,7 @@
+#!/usr/bin/env ruby
+# encoding: utf-8
+require 'combos_permutedirs'
+
+URI('https://host.dom/cgi-bin/test/').permute_dirs{|x| x.each{|y| puts "/#{y.to_a.join('/')}"}}
+
+exit 0
