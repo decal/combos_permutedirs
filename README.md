@@ -8,14 +8,14 @@
 
 ## **Description**
 
-Ever been determined to discover new sub-directories that may exist during a
+* Ever been determined to discover new sub-directories that may exist during a
 web application penetration test? This toolset may help in such a situation.  
 It creates entirely new fully qualified URL's or local filesystem pathnames 
 entirely based on the pre-existing names used by directories which have already
 been discovered. Simply provide the output from programs like dirb, DirBuster, 
 dirbx, and others as input to the provided Ruby script executables.
 
-In essence, this is a collection of modules, methods and scripts for computing 
+* In essence, this is a collection of modules, methods and scripts for computing 
 all [Permutations](http://en.wikipedia.org/wiki/Permutations) within the
 [Power Set](https://en.wikipedia.org/wiki/Power_set) of a given file/URI path's
 directory names. Thereafter, their existence may be tested for whether they be
@@ -32,9 +32,9 @@ security hardening of a workstation/server image.
 * Tests remote HTTP and HTTPS targets 
   * {URI::HTTP}
   * {URI::HTTPS}
-* Because both the combinatorics gem and this gem's methods _yield_, output will
+* Because both the combinatorics gem and this gem's methods `yield`, output will
   typically start displaying straight away, unless the k-permutation and power-
-  set cardinalities are unusually large (i.e. when dealing with a _Pathname_ at 
+  set cardinalities are unusually large (i.e. when dealing with a `Pathname` at 
   extremely deep depths--especially around 20 levels according to benchmarks.)
 
 
@@ -52,18 +52,20 @@ power-set algorithms (i.e. their cardinalities) will grow exponentially as does
 the number of individual folders in the fully qualified path. In other words,
 expect realistic examples to cause much more output than this.
 
+`
 > URI('https://host.dom/cgi-bin/test/').permute_uris{|x| x.each{|y| puts "/#{y.to_a.join('/')}"}}
 /
 /cgi-bin
 /test
 /cgi-bin/test
 /test/cgi-bin
+`
 
 * _Note_**:** _See the file **bin/one_liner** to test out this brief example_
 
 ## Requirements
 
-* [Ruby MRI](http://www.ruby-lang.org/) >= 2.2.2
+* [Ruby](http://www.ruby-lang.org/) >= 2.2.2
 
 ## Install
 
