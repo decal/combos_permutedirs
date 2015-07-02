@@ -1,4 +1,4 @@
-# Combinatorial Permutation of Directories
+# **Combinatorial Permutation of Directories**
 
 * {Combinatorics::PermuteDirs}
 * [Source](https://github.com/decal/combos_permutedirs)
@@ -6,7 +6,7 @@
 * [Documentation](http://rubydoc.info/gems/combos_permutedirs)
 * [Email](mailto:decal [AT] ethernet {D0T} org)
 
-## Description
+## **Description**
 
 Ever been determined to discover new sub-directories that may exist during a
 web application penetration test? This toolset may help in such a situation.  
@@ -27,32 +27,43 @@ are computed. The purpose of this is to discover new paths from known ones
 during reconaissance for web application penetration testing or the host-based
 security hardening of a workstation/server image.
 
-## Features
+## **Features**
 
 * Tests remote HTTP and HTTPS targets 
   * {URI::HTTP}
   * {URI::HTTPS}
+* Because both the combinatorics gem and this gem's methods _yield_, output will
+  typically start displaying straight away, unless the k-permutation and power-
+  set cardinalities are unusually large (i.e. when dealing with a _Pathname_ at 
+  extremely deep depths--especially around 20 levels according to benchmarks.)
+
+
 * Facilitates extension to other URI schemes
   * {Combinatorics::PermuteDirs::Mixin}
 * Checks local filesystem to validate current user's permission to access paths
   * {Combinatorics::PermuteDirs::Local}
 
-## Examples
+## **Examples**
 
-Enumerate over every sub-range between two ranges:
+* Enumerate over every possible sub-path that could exist within the given 
+location using the provided directory names. Of course, this is quite a
+small example. The number of elements calculated by the k-permutations and 
+power-set algorithms (i.e. their cardinalities) will grow exponentially as does
+the number of individual folders in the fully qualified path. In other words,
+expect realistic examples to cause much more output than this.
 
-> URI('https://host.dom/cgi-bin/test/').permute_dirs{|x| x.each{|y| puts "/#{y.to_a.join('/')}"}}
+> URI('https://host.dom/cgi-bin/test/').permute_uris{|x| x.each{|y| puts "/#{y.to_a.join('/')}"}}
 /
 /cgi-bin
 /test
 /cgi-bin/test
 /test/cgi-bin
 
-* Note: See the file bin/one_liner to test out this brief example
+* _Note_**:** _See the file **bin/one_liner** to test out this brief example_
 
 ## Requirements
 
-* [ruby](http://www.ruby-lang.org/) >= 2.2.2
+* [Ruby MRI](http://www.ruby-lang.org/) >= 2.2.2
 
 ## Install
 
@@ -61,7 +72,7 @@ Enumerate over every sub-range between two ranges:
 ## Shoutouts
 
 * Hal Brodigan (for teaching me how to write a RubyGem)
-* Christopher Abad (for answering all my questions about discrete math)
+* Christopher Abad (for answering my questions about discrete math)
 
 ## Copyright
 

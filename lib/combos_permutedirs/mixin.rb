@@ -10,9 +10,6 @@ require 'uri'
 #
 module Combinatorics::PermuteDirs
   #
-  # @param [String] anurl 
-  #   `anurl' is an URL as a String type and becomes a Ruby URI object
-  #
   # @raise [TypeError] 
   #   `anurl' must be a String when passed to initialize
   #
@@ -22,8 +19,9 @@ module Combinatorics::PermuteDirs
   # @raise [NameError]
   #   `anurl' must have a directory depth of more than one
   #
-  # @yield [path] 
-  #   The given block will be passed each combination of directory paths 
+  # @yield [pathlist] Array<Array<String>>
+  #   The given block will be passed two-dimensional Arrays of recombinant 
+  #   directory path names
   #
   # @yieldparam [String] path 
   #   The directory names as a unique ordering in a path
@@ -33,12 +31,12 @@ module Combinatorics::PermuteDirs
   #
   # @see URI#path
   #
-  # @example s = 'http://www.google.com/a/b'
+  # @note If no block is given, an Enumerator will be returned
   #
-  # @todo make powerset dirs with &block .. use &block here?
+  # @example String.new('http://www.google.com/a/b').permute_uris{|x| x.each{|y| puts y}}
   #
   module Mixin
-    def permute_dirs(&block)
+    def permute_uris(&block)
       anurl = self.to_s
 
       anurl.chomp!('/')
