@@ -37,8 +37,6 @@ class Object
   # Returns the path portion of a URI for Objects that are a kind of String
   #
   def path
-    raise(TypeException,'Object must be a kind of String!') if self.class.kind_of?(String)
-
-    URI(self).path
+    URI(self.to_s).path
   end
 end
