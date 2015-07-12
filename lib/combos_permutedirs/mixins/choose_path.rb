@@ -47,7 +47,7 @@ module Combinatorics::PermuteDirs::Mixin
   #   => [["a", "c", "b"], ["a", "c", "d"], ["a", "c", "e"], ["a", "c", "f"]]
   #
   def choose_path(csize, clist, &cblok)
-    cpath, caurl = '', self.to_s
+    cpath, caurl = '', self.to_s.dup
 
     caurl.chomp!('/')
     caurl.strip!
@@ -55,7 +55,7 @@ module Combinatorics::PermuteDirs::Mixin
     raise(ArgumentError,'csize and clist cannot be blank (e.g. nil or empty)!') if csize.blank? or clist.blank?
     raise(TypeError,'csize must be a kind of Integer or Fixnum!') if !(csize.kind_of?(Integer) or csize.kind_of?(Fixnum))
     raise(RangeError,'csize must be a whole number (i.e. positive and non-zero)!') if csize <= 0
-    raise(RangeError,'csize must be greater than the size of clist!') if csize <= clist.size
+    raise(RangeError,'csize must be less than the size of clist!') if csize < clist.size
     raise(TypeError,'clist must be a kind of Array!') if !clist.kind_of?(Array)
     raise(TypeError,'caurl must be a kind of String or URI!') if !(caurl.kind_of?(String) or caurl.kind_of?(URI))
 

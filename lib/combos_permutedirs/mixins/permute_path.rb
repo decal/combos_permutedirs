@@ -1,3 +1,5 @@
+# encoding: utf-8
+
 require'uri'
 
 #
@@ -8,6 +10,11 @@ require'uri'
 # @since 0.8.0
 #
 module Combinatorics::PermuteDirs::Mixin
+  #
+  # @param [Proc] ablok
+  #   a block of code to execute resulting yielded datum against 
+  #
+  # @see Proc#call
   #
   # @raise [TypeError] 
   #   `anurl` must be a `String` when passed to initialize
@@ -37,7 +44,7 @@ module Combinatorics::PermuteDirs::Mixin
   # @example String.new('http://www.google.com/a/b').permute_path { |x| x.each { |y| puts y } }
   #
   def permute_path(&ablok)
-    anurl = self.to_s
+    anurl = self.to_s.dup
 
     anurl.chomp!('/')
     anurl.strip!
@@ -61,7 +68,7 @@ module Combinatorics::PermuteDirs::Mixin
       yield anobj if block_given?
     end
 
-    block_given? ? anarr : enum_for(:String, anarr)
+    block_given? ? anarr : enum_for(:String, anarr.to_a)
   end
 
   alias_method :permute_uris, :permute_path

@@ -1,35 +1,21 @@
 #!/usr/bin/env ruby
 # encoding: utf-8
 
-require 'combos_permutedirs'
-
-=begin
-s = 'https://host.dom/cgi-bin/test/apps/who/data/abc/123'
-
-s.permute_uris do |x| 
-  u = URI(s)
-
-  x.each do |y| 
-    l = "#{u.scheme.dup}://#{u.host.dup}/#{y.to_a.join('/')}"
-
-    STDOUT.puts(l)
-  end
-end
-=end
+require'combos_permutedirs'
 
 begin
   # Note that permute_uris may be called on a String or URI
   u = URI('https://host.dom/cgi-bin/test/apps/who/data/123/abc')
 
-  u.permute_uris do |x|
+  u.permute_path do |x|
     x.each do |y|
       l = "#{u.scheme}://#{u.host}/#{y.to_a.join('/')}"
 
-      STDOUT.puts l
+      STDOUT.puts(l)
     end
   end
 rescue Exception => e
-  raise(ScriptError, e.to_s)
+  STDERR.puts(e.inspect)
 end
 
 exit 0

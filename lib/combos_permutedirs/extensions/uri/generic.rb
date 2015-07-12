@@ -9,6 +9,7 @@
 
 require'combos_permutedirs/mixins'
 
-class URI::HTTP
+class URI
+  include Combinatorics::PermuteDirs
   include Combinatorics::PermuteDirs::Mixin
 end

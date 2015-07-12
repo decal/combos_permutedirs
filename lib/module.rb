@@ -1,4 +1,8 @@
-require 'combinatorics'
+# encoding: utf-8
 
-module Combinatorics::PermuteDirs
+require'combinatorics'
+
+module Combinatorics
+  module PermuteDirs
+  end
 end
