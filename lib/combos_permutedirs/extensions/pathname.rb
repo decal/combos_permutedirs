@@ -1,4 +1,3 @@
-require 'combinatorics'
 require 'pathname'
 require 'combos_permutedirs/mixin'
 

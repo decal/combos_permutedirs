@@ -39,8 +39,6 @@ class Object
   def path
     raise(TypeException,'Object must be a kind of String!') if self.class.kind_of?(String)
 
-    u = URI(self)
-
-    u.path
+    URI(self).path
   end
 end
