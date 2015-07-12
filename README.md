@@ -59,7 +59,7 @@ the number of individual folders in the fully qualified path. In other words,
 expect realistic examples to cause much more output than this.
 
 `
-> URI('https://host.dom/cgi-bin/test/').permute_uris{|x| x.each{|y| puts "/#{y.to_a.join('/')}"}}
+> URI('https://host.dom/cgi-bin/test/').permute_path{|x| x.each{|y| puts "/#{y.to_a.join('/')}"}}
 /
 /cgi-bin
 /test
@@ -68,6 +68,11 @@ expect realistic examples to cause much more output than this.
 `
 
 * _Note_**:** _See the file **bin/one_liner** to test out this brief example_
+
+* Only extract subsets of a given length which also match a given array (Note: extremely
+useful for a script that tests based on RFC2616 HTTP/1.1 response header status codes.)
+> 'http://google.com/a/b/c/d/e/f'.choose_path(3,["a","c"]) {|x| x.each {|y| y.inspect}}
+=> [["a", "c", "b"], ["a", "c", "d"], ["a", "c", "e"], ["a", "c", "f"]]
 
 ## Requirements
 

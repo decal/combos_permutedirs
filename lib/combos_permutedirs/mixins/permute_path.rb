@@ -1,3 +1,5 @@
+require'uri'
+
 #
 # @author Derek Callaway <decal@ethernet.org>
 #
@@ -5,7 +7,7 @@
 #
 # @since 0.8.0
 #
-module Combinatorics::PermuteDirs
+module Combinatorics::PermuteDirs::Mixin
   #
   # @raise [TypeError] 
   #   `anurl` must be a `String` when passed to initialize
@@ -49,22 +51,22 @@ module Combinatorics::PermuteDirs
     asplt = apath.split('/') 
     anarr, asize = [], asplt.size - 1
 
-    raise(RangeError,'anurl path depth must be greater than one and less than twenty-five!') asize < 2 or asize > 24
+    raise(RangeError,'anurl path depth must be greater than one and less than twenty-five!') if asize < 2 or asize > 24
 
-    asplt[1 .. asize].power_set.each do |a|
+    asplt[1 .. asize].power_set.to_a.each do |a|
       anobj = a.permute(a.size) # compute k-permutations where k = a.size
 
-      anarr << anobj unless block_given?
+      anarr << anobj
 
-      yield anobj
+      yield anobj if block_given?
     end
 
     block_given? ? anarr : enum_for(:String, anarr)
   end
 
-  def permute_uris permute_path
-  def permpowset_path permute_path
-  def permpowset_uris permute_path
-  def permutepowerset_path permute_path
-  def permutepowerset_uris permute_path
+  alias_method :permute_uris, :permute_path
+  alias_method :permpowset_path, :permute_path
+  alias_method :permpowset_uris, :permute_path
+  alias_method :permutepowerset_path, :permute_path
+  alias_method :permutepowerset_uris, :permute_path
 end

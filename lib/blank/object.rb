@@ -5,26 +5,8 @@ require 'uri'
 #
 # @since 0.8.0
 #
-# @version 0.8.0
+# @version 0.8.5
 #
-class FalseClass
-  # 
-  # The `blank?' predicate method returns true for false values
-  #
-  def blank?
-    true
-  end
-end
-
-class TrueClass
-  #
-  # The `blank?' predicate method returns false for true values
-  #
-  def blank?
-    false
-  end
-end
-
 class Object
   #
   # The `blank?' predicate method returns true for empty or nil Objects

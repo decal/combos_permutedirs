@@ -1,5 +1,5 @@
-require 'pathname'
-require 'combos_permutedirs/mixin'
+require'combos_permutedirs/mixins'
+require'pathname'
 
 class Pathname
   include Combinatorics::PermuteDirs::Mixin

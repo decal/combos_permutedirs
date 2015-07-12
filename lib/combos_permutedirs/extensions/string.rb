@@ -1,5 +1,4 @@
-require 'combinatorics'
-require 'combos_permutedirs/mixin'
+require'combos_permutedirs/mixins'
 
 class String
   include Combinatorics::PermuteDirs::Mixin

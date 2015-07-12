@@ -1,3 +1,5 @@
+require'uri'
+
 #
 # @author Derek Callaway <decal@ethernet.org>
 #
@@ -19,6 +21,9 @@ module Combinatorics::PermuteDirs::Mixin
   # @raise [EOFError]
   #   `caurl` must have a slash after the Hostname or IPAddr component of the URI String
   #
+  # @raise [ArgumentError]
+  #   `csize` and `clist` must not be blank!
+  #
   # @raise [NameError]
   #   `caurl` must have a directory depth of more than one
   #
@@ -38,7 +43,8 @@ module Combinatorics::PermuteDirs::Mixin
   #
   # @see URI#path
   #
-  # @example 'http://www.google.com/a/b/c'.choose_path(3, ['c','b']) { |x| x.each { |y| puts y } }
+  # @example 'http://google.com/a/b/c/d/e/f'.choose_uris(3,["a","c"]) {|x| x.each {|y| y.inspect}}
+  #   => [["a", "c", "b"], ["a", "c", "d"], ["a", "c", "e"], ["a", "c", "f"]]
   #
   def choose_path(csize, clist, &cblok)
     cpath, caurl = '', self.to_s
@@ -46,16 +52,14 @@ module Combinatorics::PermuteDirs::Mixin
     caurl.chomp!('/')
     caurl.strip!
 
-    return enum_for(:String, caurl) unless block_given?
-
-    raise(ArgumentError,'csize cannot be blank (e.g. nil or empty)!') if csize.blank?
+    raise(ArgumentError,'csize and clist cannot be blank (e.g. nil or empty)!') if csize.blank? or clist.blank?
     raise(TypeError,'csize must be a kind of Integer or Fixnum!') if !(csize.kind_of?(Integer) or csize.kind_of?(Fixnum))
     raise(RangeError,'csize must be a whole number (i.e. positive and non-zero)!') if csize <= 0
-    raise(ArgumentError,'clist cannot be blank (e.g. nil or empty)!') if clist.blank?
+    raise(RangeError,'csize must be greater than the size of clist!') if csize <= clist.size
     raise(TypeError,'clist must be a kind of Array!') if !clist.kind_of?(Array)
     raise(TypeError,'caurl must be a kind of String or URI!') if !(caurl.kind_of?(String) or caurl.kind_of?(URI))
 
-    cpath << self.class.kind_of?(URI) ? self.path : URI(self).path
+    cpath = self.class.kind_of?(URI) ? self.path : URI(self).path
 
     raise(EOFError,'caurl must not have a blank path!') if cpath.blank?
 
@@ -65,17 +69,23 @@ module Combinatorics::PermuteDirs::Mixin
     raise(RangeError,'clist path depth must be greater than one!') if cnsiz < 2 
 
     csplt[1 .. cnsiz].choose(csize).each do |c|
-      caobj = c.permute(c.size) # compute k-permutations where k = c.size
+      caobj = c.permute(c.size).to_a # compute k-permutations where k = c.size
 
-      cnarr << caobj unless block_given?
+      #STDERR.puts("caobj: #{caobj}")
 
-      yield caobj
+      caobj.each do |x|
+        if x[0 .. clist.size - 1].eql?(clist)
+          cnarr << x
+
+          yield x if block_given?
+        end
+      end
     end
 
     block_given? ? cnarr : enum_for(:String, cnarr)
   end
 
-  def choose_uris choose_path
-  def nchooser_path choose_path
-  def nchooser_uris choose_path
+  alias_method :choose_uris, :choose_path
+  alias_method :nchooser_path, :choose_path
+  alias_method :nchooser_uris, :choose_path
 end

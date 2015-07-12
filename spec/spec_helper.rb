@@ -1,5 +1,5 @@
 gem 'rspec', '>= 3.3.0'
-require 'rspec'
+require'rspec'
 
 RSpec.configure do |config|
   config.expect_with :rspec do |c|
@@ -7,6 +7,6 @@ RSpec.configure do |config|
   end
 end
 
-require 'combos_permutedirs/version'
+require'combos_permutedirs/version'
 
 include Combinatorics::PermuteDirs

@@ -1,5 +1,5 @@
-require 'spec_helper'
-require 'combos_permutedirs/blank'
+require'spec_helper'
+require'combos_permutedirs/blank'
 
 describe 'FalseClass#blank?' do
   it 'should return false for blank? method invocation' do
