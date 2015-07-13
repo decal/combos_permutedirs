@@ -1,0 +1,69 @@
+#!/usr/bin/env ruby
+# encoding: utf-8
+#
+# @author Derek Callaway <decal@ethernet.org>
+#
+# @version 0.8.5
+#
+# @since 0.8.8
+#
+# Scan for recombinant pathnames while utilizing knowledge of HTTP response
+#   header status code values..
+#
+
+### WARNING: UNDER CONSTRUCTION! ###
+
+require'combinatorics'
+require'combos_permutedirs'
+
+module Combinatorics::PermuteDirs
+  require'pp'
+  require'uri'
+  require'net/http'
+  require'net/https'
+
+  DEBUG = false
+
+  class HttpDirScan
+    attr_reader :hturi, :dname, :hdirs
+
+    public def initialize(anurl = '')
+      raise(RuntimeError, 'URL argument cannot be blank!') if anurl.blank?
+
+      begin
+        @hturi = URI(anurl)
+        @dname = @hturi.path
+        @hdirs = @dname.split('/')
+
+        STDERR.puts "*** @dname: #{@dname}\n" if DEBUG
+        STDERR.puts "*** @hdirs: #{@hdirs}\n" if DEBUG
+
+        for k in @dsize .. @dlast
+          anurl.choose_path(k, ['a','b']) do |a|
+            STDOUT.print(@hturi.scheme)
+            STDOUT.print('://')
+            STDOUT.print(@hturi.host)
+            STDOUT.print(":#{@hturi.port}") if @hturi.port != 80 and @hturi.port != 443
+            STDOUT.puts("/#{a.join('/')}") 
+          end
+        end
+      rescue Exception => e
+        STDERR.puts(e.backtrace.join(' '))
+        STDERR.puts(e.inspect)
+      end
+
+      true
+    end
+  end
+end
+
+include Combinatorics, Combinatorics::PermuteDirs
+
+if !ARGV.blank?
+  HttpDirScan.new(ARGV.first)
+else
+  STDOUT.puts('usage: ./httpdirscan URL')
+  STDOUT.puts("  URL - Uniform Resource Locator as a String\n")
+end
+
+exit 0

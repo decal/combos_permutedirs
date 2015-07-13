@@ -17,8 +17,8 @@ require'combos_permutedirs'
 module Combinatorics::PermuteDirs
   require'pp'
   require'uri'
-  require'singleton'
   require'net/http'
+  require'net/https'
 
   DEBUG = false
 
