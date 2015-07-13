@@ -90,11 +90,11 @@ useful for a script that tests based on RFC2616 HTTP/1.1 response header status 
 
 ## Shoutouts
 
-* Hal Brodigan (for teaching me how to write a RubyGem)
-* Christopher Abad (for answering my questions about discrete math)
+* Hal Brodigan (for helping me practice writing rubygems)
+* Christopher Abad (being a resource on combinatorics and other discrete math subjects)
 
 ## Copyright
 
 Copyright (c) 2015 _Derek Callaway_
 
-See {file:LICENSE.txt} for license information.
+See `LICENSE.txt` for license information.

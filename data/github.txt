@@ -1,0 +1,12 @@
+ChangeLog
+ChangeLog.md
+CHANGELOG.md
+HISTORY.txt
+HISTORY.md
+History.md
+NEWS.txt
+NEWS.md
+News.txt
+RELEASES.txt
+RELEASE.md
+releases.md

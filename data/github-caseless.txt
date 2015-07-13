@@ -1,0 +1,9 @@
+changelog
+changelog.md
+history.md
+history.txt
+news.md
+news.txt
+release.md
+releases.md
+releases.txt

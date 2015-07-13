@@ -68,8 +68,8 @@ module Combinatorics::PermuteDirs::Mixin
 
     raise(RangeError,'clist path depth must be greater than one!') if cnsiz < 2 
 
-    csplt[1 .. cnsiz].choose(csize).each do |c|
-      caobj = c.permute(c.size).to_a # compute k-permutations where k = c.size
+    csplt[1 .. cnsiz].choose(csize).to_a.each do |c|
+      caobj = c.permute(c.size) # compute k-permutations where k = c.size
 
       #STDERR.puts("caobj: #{caobj}")
 
@@ -82,7 +82,7 @@ module Combinatorics::PermuteDirs::Mixin
       end
     end
 
-    block_given? ? cnarr : enum_for(:String, cnarr)
+    block_given? ? cnarr : cnarr.to_enum
   end
 
   alias_method :choose_uris, :choose_path

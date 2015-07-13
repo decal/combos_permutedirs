@@ -68,7 +68,7 @@ module Combinatorics::PermuteDirs::Mixin
       yield anobj if block_given?
     end
 
-    block_given? ? anarr : enum_for(:String, anarr.to_a)
+    block_given? ? anarr : anarr.to_enum
   end
 
   alias_method :permute_uris, :permute_path
