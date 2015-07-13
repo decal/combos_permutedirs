@@ -8,7 +8,8 @@
 # @since 0.8.5
 #
 # Generate recombinant HTTP pathnames based on beginning and ending depth
-#   level values for file directory hierarchy..
+#   level values for file directory hierarchy.. As an option, append file
+#   names extracted from a local text file's contents..
 #
 
 require'combinatorics'
@@ -20,7 +21,23 @@ module Combinatorics::PermuteDirs
   require'net/http'
   require'net/https'
 
+  # 
+  # @private DEBUG 
+  #   Display debugging information on standard error stream?
+  #
   DEBUG = false
+  #
+  # @private APPND
+  #   Append custom filename data to generated results?
+  #
+  APPND = true
+  #
+  # @private DFILE
+  #   If APPND is true, then use this data file for input
+  #
+  # @see APPND
+  #
+  DFILE = '../data/github.txt'
 
   class GenHttpDirs
     attr_reader :hturi, :dname, :hdirs, :depth, :dsize, :level
@@ -46,11 +63,22 @@ module Combinatorics::PermuteDirs
 
         for k in @dsize .. @dlast
           anurl.choose_path(k, ['a','b']) do |a|
-            STDOUT.print(@hturi.scheme)
-            STDOUT.print('://')
-            STDOUT.print(@hturi.host)
-            STDOUT.print(":#{@hturi.port}") if @hturi.port != 80 and @hturi.port != 443
-            STDOUT.puts("/#{a.join('/')}") 
+            if APPND
+              gnuri = "#{@hturi.scheme}://#{@hturi.host}"
+              gnuri << ":#{@hturi.port}" if @hturi.port != 80 and @hturi.port != 443
+              gnuri << "/#{a.join('/')}"
+
+              File.new(DFILE, 'rb').readlines.each do |l|
+                STDOUT.print(gnuri)
+                STDOUT.puts("/#{l}")
+              end
+            else
+              STDOUT.print(@hturi.scheme)
+              STDOUT.print('://')
+              STDOUT.print(@hturi.host)
+              STDOUT.print(":#{@hturi.port}") if @hturi.port != 80 and @hturi.port != 443
+              STDOUT.puts("/#{a.join('/')}") 
+            end
           end
         end
       rescue Exception => e
@@ -68,10 +96,10 @@ include Combinatorics::PermuteDirs
 if !ARGV.blank? and ARGV.size > 2
   GenHttpDirs.new(ARGV.first.to_s, ARGV[-2].to_i, ARGV[-1].to_i) 
 else
-  STDOUT.puts q{usage: ./genhttpdirs URL first_depth last_depth}
-  STDOUT.puts q{  URL          Uniform Resource Locator as a String}
-  STDOUT.puts q{  first_depth  Path depth level to start at as an Integer}
-  STDOUT.puts q{  last_depth   Path depth level to finish at also as an Integer}
+  STDOUT.puts('usage: ./genhttpdirs URL first_depth last_depth')
+  STDOUT.puts('  URL          Uniform Resource Locator as a String')
+  STDOUT.puts('  first_depth  Path depth level to start at as an Integer')
+  STDOUT.puts('  last_depth   Path depth level to finish at also as an Integer')
 end
 
 exit 0
