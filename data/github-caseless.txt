@@ -1,5 +1,6 @@
 changelog
 changelog.md
+changes.txt
 history.md
 history.txt
 news.md

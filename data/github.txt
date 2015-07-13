@@ -1,6 +1,7 @@
 ChangeLog
 ChangeLog.md
 CHANGELOG.md
+CHANGES.txt
 HISTORY.txt
 HISTORY.md
 History.md
