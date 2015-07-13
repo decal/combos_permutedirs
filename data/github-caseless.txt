@@ -1,6 +1,14 @@
+.editorconfig
+.gitignore
+.gitmodules
+appveyor.yml
 changelog
 changelog.md
 changes.txt
+cmakelists.txt
+contributing.md
+extensibility.md
+gemspec.yml
 history.md
 history.txt
 news.md
