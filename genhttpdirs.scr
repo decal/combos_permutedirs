@@ -1,0 +1,21 @@
+Script started on Sun Jul 12 19:58:42 2015
+decal@linux:~/code/rb/combos_permutedirs/bin$ ./genhttpdirs http://google.com/a/b/c/d/e/f 2 4
+http://google.com/a/b
+http://google.com/a/b/c
+http://google.com/a/b/d
+http://google.com/a/b/e
+http://google.com/a/b/f
+http://google.com/a/b/c/d
+http://google.com/a/b/d/c
+http://google.com/a/b/c/e
+http://google.com/a/b/e/c
+http://google.com/a/b/c/f
+http://google.com/a/b/f/c
+http://google.com/a/b/d/e
+http://google.com/a/b/e/d
+http://google.com/a/b/d/f
+http://google.com/a/b/f/d
+http://google.com/a/b/e/f
+http://google.com/a/b/f/e
+decal@linux:~/code/rb/combos_permutedirs/bin$ 
+Script done on Sun Jul 12 19:58:54 2015

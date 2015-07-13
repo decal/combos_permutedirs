@@ -50,6 +50,9 @@ host-based security hardening of a workstation/server image.
   * `File#dirname`
 
 ## **Examples**
+##
+## _Refer to the file named `genhttpdirs.scr` in the root of the repository_
+
 
 * Enumerate over every possible sub-path that could exist within the given 
 location using the provided directory names. Of course, this is quite a
@@ -71,8 +74,11 @@ expect realistic examples to cause much more output than this.
 
 * Only extract subsets of a given length which also match a given array (Note: extremely
 useful for a script that tests based on RFC2616 HTTP/1.1 response header status codes.)
-> 'http://google.com/a/b/c/d/e/f'.choose_path(3,["a","c"]) {|x| x.each {|y| y.inspect}}
+
+`
+> 'http://google.com/a/b/c/d/e/f'.choose_path(3,["a","c"]) { |x| x.each { |y| y.inspect } }
 => [["a", "c", "b"], ["a", "c", "d"], ["a", "c", "e"], ["a", "c", "f"]]
+`
 
 ## Requirements
 

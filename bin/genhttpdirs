@@ -1,0 +1,77 @@
+#!/usr/bin/env ruby
+# encoding: utf-8
+#
+# @author Derek Callaway <decal@ethernet.org>
+#
+# @version 0.8.5
+#
+# @since 0.8.5
+#
+# Generate recombinant HTTP pathnames based on beginning and ending depth
+#   level values for file directory hierarchy..
+#
+
+require'combinatorics'
+require'combos_permutedirs'
+
+module Combinatorics::PermuteDirs
+  require'pp'
+  require'uri'
+  require'singleton'
+  require'net/http'
+
+  DEBUG = false
+
+  class GenHttpDirs
+    attr_reader :hturi, :dname, :hdirs, :depth, :dsize, :level
+
+    public def initialize(anurl = '', astrt = -1, anend = -1)
+      raise(RuntimeError, 'URL argument cannot be blank!') if anurl.blank?
+
+      begin
+        @hturi = URI(anurl)
+        @dname = @hturi.path
+        @hdirs = @dname.split('/')
+        @level = @depth = @hdirs.size
+        @dsize = (astrt >= 0 ? astrt : 0)
+        @dlast = (anend >= 0 ? anend : @level)
+        @depth -= 1
+
+        raise(RangeError, 'dsize attriute value must be at least two!') if @dsize < 2
+        raise(RangeError, 'dlast attribute value must be greater than or equal to dsize value!') if @dlast < @dsize
+        raise(RuntimeException, 'level attribute value less than anarr size!') if @level < @dsize
+
+        STDERR.puts "*** @dsize: #{@dsize}\n" if DEBUG
+        STDERR.puts "*** @level: #{@level}\n" if DEBUG
+
+        for k in @dsize .. @dlast
+          anurl.choose_path(k, ['a','b']) do |a|
+            STDOUT.print(@hturi.scheme)
+            STDOUT.print('://')
+            STDOUT.print(@hturi.host)
+            STDOUT.print(":#{@hturi.port}") if @hturi.port != 80 and @hturi.port != 443
+            STDOUT.puts("/#{a.join('/')}") 
+          end
+        end
+      rescue Exception => e
+        STDERR.puts(e.backtrace.join(' '))
+        STDERR.puts(e.inspect)
+      end
+
+      true
+    end
+  end
+end
+
+include Combinatorics::PermuteDirs
+
+if !ARGV.blank? and ARGV.size > 2
+  GenHttpDirs.new(ARGV.first.to_s, ARGV[-2].to_i, ARGV[-1].to_i) 
+else
+  STDOUT.puts q{usage: ./genhttpdirs URL first_depth last_depth}
+  STDOUT.puts q{  URL          Uniform Resource Locator as a String}
+  STDOUT.puts q{  first_depth  Path depth level to start at as an Integer}
+  STDOUT.puts q{  last_depth   Path depth level to finish at also as an Integer}
+end
+
+exit 0
