@@ -18,7 +18,7 @@ dirbx, and others as input to the provided Ruby script executables.
 * In essence, this is a collection of modules, methods and scripts for computing 
 all [Permutations](http://en.wikipedia.org/wiki/Permutations) within the
 [Power Set](https://en.wikipedia.org/wiki/Power_set) of a given `File#dirname` 
-paths directory names. Thereafter, their existence may be tested for whether 
+path's directory names. Thereafter, their existence may be tested for whether 
 they be web-based or local file system paths. You may use these scripts 
 themselves to check for their existence or have them create output files to be 
 used as input for another brute-force search or enumeration type scanning tool. 

@@ -1,0 +1,10 @@
+adclick
+finfo
+login
+mail
+nation
+pat
+submit
+trav
+update
+url

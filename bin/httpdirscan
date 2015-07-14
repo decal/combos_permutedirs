@@ -63,7 +63,7 @@ if !ARGV.blank?
   HttpDirScan.new(ARGV.first)
 else
   STDOUT.puts('usage: ./httpdirscan URL')
-  STDOUT.puts("  URL - Uniform Resource Locator as a String\n")
+  STDOUT.puts('  URL - Uniform Resource Locator as a String')
 end
 
 exit 0

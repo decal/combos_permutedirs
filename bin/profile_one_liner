@@ -1,6 +1,6 @@
 #!/usr/bin/env ruby
 # encoding: utf-8
-require'profile'
 require'combos_permutedirs'
-'https://host.dom/1/2/3/4/5/6/7/8/9/10/11/12/13/14/15/16/17/18'.permute_uris{|x| x.each{|y| puts"/#{y.to_a.join('/')}"}}
+require'profile'
+URI('https://host.dom/cgi-bin/test/').permute_uris{|x| x.each{|y| puts"/#{y.to_a.join('/')}"}}
 exit 0
