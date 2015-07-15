@@ -1,6 +1,7 @@
 sso
 dispatcher
 admin
+administrator
 intranet
 private
 secret

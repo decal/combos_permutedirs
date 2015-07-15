@@ -1,0 +1,11 @@
+include
+script
+img
+image
+javascript
+style
+admin
+administrator
+login
+manual
+help

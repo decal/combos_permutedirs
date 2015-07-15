@@ -1,4 +1,5 @@
 .bash_history
+.ds_store
 .editorconfig
 .gitattributes
 .gitignore
@@ -17,6 +18,7 @@ disclaimer
 dockerfile
 extensibility.md
 gemspec.yml
+history
 history.md
 history.txt
 install
@@ -36,6 +38,7 @@ release.md
 releases.md
 releases.txt
 scalastyle-config.xml
+thumbs.db
 version
 version-info.in
 version.info.in
