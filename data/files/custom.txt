@@ -8,3 +8,6 @@ submit
 trav
 update
 url
+option
+manifest
+master

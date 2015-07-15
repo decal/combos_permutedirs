@@ -4,6 +4,7 @@ admin
 administrator
 intranet
 private
+_private
 secret
 crl
 passwords.txt

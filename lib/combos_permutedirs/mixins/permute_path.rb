@@ -60,10 +60,10 @@ module Combinatorics::PermuteDirs::Mixin
 
     raise(RangeError,'anurl path depth must be greater than one and less than twenty-five!') if asize < 2 or asize > 24
 
-    asplt[1 .. asize].power_set.to_a.each do |a|
-      anobj = a.permute(a.size) # compute k-permutations where k = a.size
+    asplt[1 .. asize].power_set.each do |a|
+      anobj = a.permute(a.size).to_a # compute k-permutations where k = a.size
 
-      anarr << anobj
+      anarr += anobj
 
       yield anobj if block_given?
     end

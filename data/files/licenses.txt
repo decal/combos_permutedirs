@@ -1,0 +1,13 @@
+BSD-LICENSE
+MIT-LICENSE
+MIT-LICENSE.txt
+COPYING
+COPYING.md
+COPYING.txt
+GPL.txt
+LGPL.txt
+legalcode.txt
+license.txt
+cpl1.0.txt
+readme-license.txt
+MIT_license.txt
