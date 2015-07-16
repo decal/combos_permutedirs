@@ -19,6 +19,7 @@ require'combos_permutedirs'
 module Combinatorics::PermuteDirs
   require'pp'
   require'uri'
+  require'pathname'
   require'net/http'
   require'net/https'
 
@@ -27,32 +28,35 @@ module Combinatorics::PermuteDirs
   class HttpDirScan
     attr_reader :hturi, :dname, :hdirs
 
-    public def initialize(anurl = '')
-      raise(RuntimeError, 'URL argument cannot be blank!') if anurl.blank?
+    def initialize(afile = '')
+      raise(EmptyError, 'URL argument cannot be blank!') if afile.blank?
+      raise(TypeError, 'afile must be a kind of String or Pathname!') !(afile.kind_of?(String) or afile.kind_of?(Pathname))
+         
+      File.open(afile, 'rb').readlines.each do |l|
+        begin
+          @hturi = URI(l)
+          @dname = @hturi.path
+          @hdirs = @dname.split('/')
 
-      begin
-        @hturi = URI(anurl)
-        @dname = @hturi.path
-        @hdirs = @dname.split('/')
+          STDERR.puts "*** @dname: #{@dname}\n" if DEBUG
+          STDERR.puts "*** @hdirs: #{@hdirs}\n" if DEBUG
 
-        STDERR.puts "*** @dname: #{@dname}\n" if DEBUG
-        STDERR.puts "*** @hdirs: #{@hdirs}\n" if DEBUG
-
-        for k in @dsize .. @dlast
-          anurl.choose_path(k, ['a','b']) do |a|
-            STDOUT.print(@hturi.scheme)
-            STDOUT.print('://')
-            STDOUT.print(@hturi.host)
-            STDOUT.print(":#{@hturi.port}") if @hturi.port != 80 and @hturi.port != 443
-            STDOUT.puts("/#{a.join('/')}") 
+          for k in @dsize .. @dlast
+            anurl.choose_path(k, ['a','b']) do |a|
+              STDOUT.print(@hturi.scheme)
+              STDOUT.print('://')
+              STDOUT.print(@hturi.host)
+              STDOUT.print(":#{@hturi.port}") if @hturi.port != 80 and @hturi.port != 443
+              STDOUT.puts("/#{a.join('/')}") 
+            end
           end
+        rescue Exception => e
+          STDERR.puts(e.backtrace.join(' '))
+          STDERR.puts(e.inspect)
         end
-      rescue Exception => e
-        STDERR.puts(e.backtrace.join(' '))
-        STDERR.puts(e.inspect)
-      end
 
-      true
+        true
+      end
     end
   end
 end
@@ -62,8 +66,8 @@ include Combinatorics, Combinatorics::PermuteDirs
 if !ARGV.blank?
   HttpDirScan.new(ARGV.first)
 else
-  STDOUT.puts('usage: ./httpdirscan URL')
-  STDOUT.puts('  URL - Uniform Resource Locator as a String')
+  STDOUT.puts('usage: ./httpdirscan FILE')
+  STDOUT.puts('  FILE - file to read URL strings from')
 end
 
-exit 0
+exit(0)

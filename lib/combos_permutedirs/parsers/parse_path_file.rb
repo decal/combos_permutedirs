@@ -9,7 +9,7 @@
 
 require'pathname'
 
-module Combinatorics::PermuteDirs::Helper
+module Combinatorics::PermuteDirs::Parser
   #
   # Parse unique names from paths delimited by a forward slash in given file
   #

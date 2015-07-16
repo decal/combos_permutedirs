@@ -6,13 +6,28 @@ require'combos_permutedirs/config'
 #
 # @author Derek Callaway <decal@ethernet.org>
 #
-# @version 0.8.5
+# @version 0.8.8
 #
-# @since 0.8.0
+# @since 0.8.8
 #
 module Combinatorics::PermuteDirs::Mixin
+  # @param [Hash] dopts
+  #   derangement options hash object
   #
-  # @param [Proc] ablok
+  # @options [Regexp] :exclude
+  #   regular expression pattern to identify elements for exclusion
+  #
+  # @options [Regexp] :include
+  #   regular expression pattern to identify elements for inclusion, thus 
+  #   overriding any prior exclusion match
+  #
+  # @options [Fixnum, Integer, Float] :choose
+  #   number of r elements to n-choose-r from resulting array values passed
+  #   to the `dblok` procedure; if the value is a floating-point number, then
+  #   n-choose-r will occur twice: with the integer before the decimal point
+  #   as well as the integer after it
+  #
+  # @param [Proc] dblok
   #   a block of code to execute resulting yielded datum against 
   #
   # @see Proc#call
@@ -44,15 +59,22 @@ module Combinatorics::PermuteDirs::Mixin
   #
   # @example String.new('http://www.google.com/a/b').permute_path { |x| x.each { |y| puts y } }
   #
-  def permute_path(&ablok)
-    anurl = self.to_s.dup
+  def derange_path(dopts, &dblok)
+    incre = dopts['include'] ? dopts[:include] : nil
+    excre = dopts['exclude'] ? dopts[:exclude] : nil
+    achoo = dopts['choose'] ? dopts[:choose] : nil
+
+    anurl = self.dup
 
     anurl.chomp!('/')
     anurl.strip!
 
+    raise(TypeError,'incre must be a kind of Regexp!') if !incre.kind_of?(Regexp)
+    raise(TypeError,'excre must be a kind of Regexp!') if !excre.kind_of?(Regexp)
+    raise(TypeError,'achoo must be a kind of Fixnum, Integer or Float!') if !(achoo.kind_of?(Fixnum) or achoo.kind_of?(Integer) or achoo.kind_of?(Float))
     raise(TypeError,'anurl must be a kind of String or URI!') if !(anurl.kind_of?(String) or anurl.kind_of?(URI))
 
-    apath = self.path
+    apath = self.kind_of?(URI) ? self.path : URI(self).path
 
     raise(EOFError,'anurl must have a path!') if apath.blank?
 
@@ -61,20 +83,18 @@ module Combinatorics::PermuteDirs::Mixin
 
     raise(RangeError,'anurl path depth must be greater than one and less than twenty-five!') if asize < 2 or asize > 24
 
-    asplt[1 .. asize].power_set.each do |a|
-      anobj = a.permute(a.size).to_a # compute k-permutations where k = a.size
+    asplt[1 .. asize].derange.each do |a|
+      a.each do |z|
+        p z
+      end
 
-      anarr += anobj
+      anarr << a
 
-      yield anobj if block_given?
+      yield a if block_given?
     end
 
     block_given? ? anarr : anarr.to_enum
   end
 
-  alias_method :permute_uris, :permute_path
-  alias_method :permpowset_path, :permute_path
-  alias_method :permpowset_uris, :permute_path
-  alias_method :permutepowerset_path, :permute_path
-  alias_method :permutepowerset_uris, :permute_path
+  alias_method :derange_uris, :derange_path
 end

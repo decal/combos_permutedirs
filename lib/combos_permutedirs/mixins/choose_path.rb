@@ -66,7 +66,7 @@ module Combinatorics::PermuteDirs::Mixin
     raise(TypeError,'clist must be a kind of Array if not NilClass!') if !(clist.nil? or clist.kind_of?(Array))
     raise(TypeError,'caurl must be a kind of String or URI!') if !(caurl.kind_of?(String) or caurl.kind_of?(URI))
 
-    cpath = self.class.kind_of?(URI) ? self.path : URI(self).path
+    cpath = self.kind_of?(URI) ? self.path : URI(self).path
 
     raise(EmptyError,'caurl must not have a blank path!') if cpath.blank?
 
@@ -81,7 +81,7 @@ module Combinatorics::PermuteDirs::Mixin
       begin
         caobj = c.permute(c.size).to_a # compute k-permutations where k = c.size
 
-        warn("*%* caobj: #{caobj} c: #{c}") if Setup::CURRENT.debug
+        warn("*%* caobj: #{caobj} c: #{c}") if Config.debug
 
         if clist and clsiz and !clsiz.zero?
           caobj.each do |x|
@@ -99,11 +99,11 @@ module Combinatorics::PermuteDirs::Mixin
           end
         end
       rescue Exception => e
-        warn("*!* #{e} #{e.backtrace_locations.join(' ')}") if Setup::CURRENT.debug
+        warn("*!* #{e} #{e.backtrace_locations.join(' ')}") if Config.debug
       end
     end
 
-    warn('choose_path return Array is empty!') if cnarr.empty? and Setup::CURRENT.verbose >= 1
+    warn('choose_path return Array is empty!') if cnarr.empty? and Config.debug
 
     block_given? ? cnarr : cnarr.to_enum
   end

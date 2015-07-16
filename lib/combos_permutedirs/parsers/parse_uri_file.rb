@@ -9,7 +9,9 @@
 
 require'uri'
 
-module Combinatorics::PermuteDirs::Helper
+include Combinatorics::PermuteDirs
+
+module Combinatorics::PermuteDirs::Parser
   #
   # Read URI's from given file and return array of names from within their paths
   #
@@ -46,8 +48,12 @@ module Combinatorics::PermuteDirs::Helper
       end
     end
 
-    aretn.sort!
-    aretn.uniq!
+    begin
+      aretn.sort!
+      aretn.uniq!
+    rescue Exception => e
+      warn("*!* #{$!} #{$@}") if Config.debug
+    end
 
     aretn
   end

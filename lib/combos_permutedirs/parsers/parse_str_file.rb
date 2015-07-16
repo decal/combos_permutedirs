@@ -7,7 +7,7 @@
 # @since 0.8.8
 #
 
-module Combinatorics::PermuteDirs::Helper
+module Combinatorics::PermuteDirs::Parser
   # 
   # @param [String] afile
   #   Location of file to parse names as String objects without any slash delimiters

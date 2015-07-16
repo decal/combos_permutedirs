@@ -1,3 +1,3 @@
-require'parse_path_file'
-require'parse_str_file'
-require'parse_uri_file'
+require'combos_permutedirs/helpers/cast_float'
+require'combos_permutedirs/helpers/cast_string'
+require'combos_permutedirs/helpers/combine_options'

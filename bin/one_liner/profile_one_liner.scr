@@ -1,0 +1,20 @@
+Script started on Wed Jul 15 16:31:29 2015
+decal@linux:~/combos_permutedirs/bin/one_liner$ # Enumerating from URI path 15 levels deep
+decal@linux:~/combos_permutedirs/bin/one_liner$ # Results are too many--sending to bit bucket
+decal@linux:~/combos_permutedirs/bin/one_liner$ time ./profile_one_liner >/dev/null 
+Killed
+
+real	252m43.893s
+user	103m34.347s
+sys	8m17.798s
+decal@linux:~/combos_permutedirs/bin/one_liner$ # Note: profiler stats missed due to SIGKILL (#9)
+decal@linux:~/combos_permutedirs/bin/one_liner$ # A kill signal typically cannot be handled/avoided 
+decal@linux:~/combos_permutedirs/bin/one_liner$ # Over four (4) hours passed and it still wasn't done
+decal@linux:~/combos_permutedirs/bin/one_liner$ # 'choose' could have finished given the correct input
+decal@linux:~/combos_permutedirs/bin/one_liner$ # 
+decal@linux:~/combos_permutedirs/bin/one_liner$ # 'permute' algorithmic complexity is too high, as
+decal@linux:~/combos_permutedirs/bin/one_liner$ #    it computes k-permutations of power set elements
+decal@linux:~/combos_permutedirs/bin/one_liner$ #    
+decal@linux:~/combos_permutedirs/bin/one_liner$ # Be sure to "choose" your approach wisely 
+decal@linux:~/combos_permutedirs/bin/one_liner$ exit 
+Script done on Wed Jul 15 20:49:28 2015

@@ -1,0 +1,15 @@
+server-status
+server-info
+manual
+icons
+help
+public_html
+~root
+~nobody
+html
+cgi-bin
+cgi-sys
+scripts
+logs
+log
+logfiles
