@@ -1,0 +1,2 @@
+https://host.dom/cgi-bin/test/apps/who/data/123/abc
+https://blah.org/html/apps/admin/home/index.html

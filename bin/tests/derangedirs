@@ -13,12 +13,10 @@ begin
       }
 
 
-  u.derange_path do |x|
-    x.each do |y|
-      l = "#{u.scheme}://#{u.host}/#{y.to_a.join('/')}"
+  u.derange_path(o) do |x|
+    l = "#{u.scheme}://#{u.host}/#{x.to_a.join('/')}"
 
-      STDOUT.puts(l)
-    end
+    STDOUT.puts(l)
   end
 rescue Exception => e
   STDERR.puts(e.inspect)

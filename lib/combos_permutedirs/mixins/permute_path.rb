@@ -1,8 +1,5 @@
 # encoding: utf-8
 
-require'uri'
-require'combos_permutedirs/config'
-
 #
 # @author Derek Callaway <decal@ethernet.org>
 #
@@ -45,14 +42,14 @@ module Combinatorics::PermuteDirs::Mixin
   # @example String.new('http://www.google.com/a/b').permute_path { |x| x.each { |y| puts y } }
   #
   def permute_path(&ablok)
-    anurl = self.to_s.dup
+    anurl = self.to_s
 
     anurl.chomp!('/')
     anurl.strip!
 
     raise(TypeError,'anurl must be a kind of String or URI!') if !(anurl.kind_of?(String) or anurl.kind_of?(URI))
 
-    apath = self.path
+    apath = anurl.path
 
     raise(EOFError,'anurl must have a path!') if apath.blank?
 

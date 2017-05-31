@@ -1,5 +1,4 @@
-require'uri'
-require'combos_permutedirs/config'
+# encoding: utf-8
 
 #
 # @author Derek Callaway <decal@ethernet.org>

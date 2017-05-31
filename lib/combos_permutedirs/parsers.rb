@@ -1,3 +1,3 @@
-require'parse_path_file'
-require'parse_str_file'
-require'parse_uri_file'
+require'combos_permutedirs/parsers/parse_path_file'
+require'combos_permutedirs/parsers/parse_str_file'
+require'combos_permutedirs/parsers/parse_uri_file'

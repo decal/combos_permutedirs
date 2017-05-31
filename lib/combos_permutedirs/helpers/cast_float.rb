@@ -3,11 +3,11 @@ class Float
     aflot = self
     one, two = 0, 0
 
-    one = self.to_i
-    two = (self - one) * 10
+    one = aflot.to_i
+    two = (aflot - one) * 10
     
     raise(RangeError,'number after decimal must be greater than or equal to number before!') if one > two
 
-    self = one..two
+    self.assign(one.two)
   end
 end

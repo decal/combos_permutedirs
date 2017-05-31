@@ -7,8 +7,11 @@
 # @since 0.8.0
 #
 
-require'combos_permutedirs/mixins'
+require 'combos_permutedirs/mixins'
+require 'uri'
 
-class URI::HTTP
-  include Combinatorics::PermuteDirs::Mixin
+module URI
+  class HTTP
+    include Combinatorics::PermuteDirs::Mixin
+  end
 end

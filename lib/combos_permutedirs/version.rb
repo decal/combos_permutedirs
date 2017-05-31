@@ -8,7 +8,7 @@
 #
 # @note PermuteDirs module namespace is distinctly separate from combinatorics gem
 #
-require'combinatorics'
+#require'combinatorics'
 
 module Combinatorics::PermuteDirs
   #

@@ -46,8 +46,8 @@ module Combinatorics::PermuteDirs::Parser
         begin
           p = Pathname.new(l)
 
-          l.split('/').each do |s| 
-            aretn << s
+          l.split('/').each do |z| 
+            aretn << z
           end
         rescue Exception => e
           if p.blank?

@@ -37,9 +37,13 @@ module Combinatorics::PermuteDirs::Parser
 
     File.new(afile, 'rb').readlines.each do |l|
       begin
+        l.rstrip!
+
         p = URI(l)
 
-        p.path.split('/').each { |s| aretn << s }
+        a = p.path.dup.split('/')
+
+        aretn.concat(a)
       rescue Exception => e
         STDERR.puts(e.inspect)
         STDERR.puts(e.backtrace.join(' '))
@@ -51,7 +55,7 @@ module Combinatorics::PermuteDirs::Parser
     begin
       aretn.sort!
       aretn.uniq!
-    rescue Exception => e
+    rescue Exception
       warn("*!* #{$!} #{$@}") if Config.debug
     end
 

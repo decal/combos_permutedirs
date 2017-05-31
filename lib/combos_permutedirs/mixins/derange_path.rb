@@ -1,7 +1,9 @@
 # encoding: utf-8
 
-require'uri'
-require'combos_permutedirs/config'
+#require'uri'
+#require'combos_permutedirs/config'
+
+require 'combinatorics'
 
 #
 # @author Derek Callaway <decal@ethernet.org>
@@ -64,14 +66,14 @@ module Combinatorics::PermuteDirs::Mixin
     excre = dopts['exclude'] ? dopts[:exclude] : nil
     achoo = dopts['choose'] ? dopts[:choose] : nil
 
-    anurl = self.dup
+    anurl = self.to_s
 
     anurl.chomp!('/')
     anurl.strip!
 
-    raise(TypeError,'incre must be a kind of Regexp!') if !incre.kind_of?(Regexp)
-    raise(TypeError,'excre must be a kind of Regexp!') if !excre.kind_of?(Regexp)
-    raise(TypeError,'achoo must be a kind of Fixnum, Integer or Float!') if !(achoo.kind_of?(Fixnum) or achoo.kind_of?(Integer) or achoo.kind_of?(Float))
+    raise(TypeError,'incre must be a kind of Regexp!') if incre and !incre.kind_of?(Regexp)
+    raise(TypeError,'excre must be a kind of Regexp!') if excre and !excre.kind_of?(Regexp)
+    raise(TypeError,'achoo must be a kind of Fixnum, Integer or Float!') if achoo and !(achoo.kind_of?(Fixnum) or achoo.kind_of?(Integer) or achoo.kind_of?(Float))
     raise(TypeError,'anurl must be a kind of String or URI!') if !(anurl.kind_of?(String) or anurl.kind_of?(URI))
 
     apath = self.kind_of?(URI) ? self.path : URI(self).path
@@ -84,11 +86,7 @@ module Combinatorics::PermuteDirs::Mixin
     raise(RangeError,'anurl path depth must be greater than one and less than twenty-five!') if asize < 2 or asize > 24
 
     asplt[1 .. asize].derange.each do |a|
-      a.each do |z|
-        p z
-      end
-
-      anarr << a
+      anarr.concat(a)
 
       yield a if block_given?
     end

@@ -12,7 +12,7 @@
 #
 
 require'singleton'
-require'combinatorics'
+#require'combinatorics'
 
 module Combinatorics
   module PermuteDirs

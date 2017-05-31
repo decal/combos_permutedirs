@@ -3,19 +3,21 @@
 
 require'combos_permutedirs'
 
-include Combinatorics, Combinatorics::PermuteDirs
+include Combinatorics, Combinatorics::PermuteDirs, Combinatorics::PermuteDirs::Parser
 
 begin
-  path_names = PermuteDirs::Helper::parse_uri_file('./sample.txt')
+  path_names = parse_uri_file('./sample.txt')
+
+  p path_names
 
   # Note that permute_uris may be called on a String or URI
-  u = URI('https://host.dom/cgi-bin/test/apps/who/data/123/abc')
+  path_names.each do |u|
+    u.permute_path do |x|
+      x.each do |y|
+        l = "#{u.scheme}://#{u.host}/#{y.to_a.join('/')}"
 
-  u.permute_path do |x|
-    x.each do |y|
-      l = "#{u.scheme}://#{u.host}/#{y.to_a.join('/')}"
-
-      STDOUT.puts(l)
+        STDOUT.puts(l)
+      end
     end
   end
 rescue Exception => e
