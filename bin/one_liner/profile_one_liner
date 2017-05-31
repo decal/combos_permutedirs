@@ -1,6 +1,10 @@
 #!/usr/bin/env ruby
 # encoding: utf-8
+#
+
 require'combos_permutedirs'
 require'profile'
-String.new('https://host.dom/1/2/3/4/5/6/7/8/9/10/11/12/13/14/15').permute_uris{|x| x.each{|y| puts"/#{y.to_a.join('/')}"}}
+
+String.new('https://host.dom/1/2/3/4/5/6/7/8').permute_uris { |x| x.each { |y| puts("/#{y.join('/')}") }}
+
 exit 0

@@ -72,7 +72,7 @@ module Combinatorics::PermuteDirs::Mixin
     cnarr, csplt = [], cpath.split('/')
     cnsiz = csplt.size - 1
 
-    raise(RangeError,'csize must be less than or equal to clist path depth!') if csize > clsiz
+    # raise(RangeError,'csize must be less than or equal to clist path depth!') if csize > clsiz
     raise(RangeError,'csize must be non-zero and non-negative!') if csize < 1
     raise(RangeError,'clist path depth must be non-zero and non-negative!') if cnsiz < 1
 
